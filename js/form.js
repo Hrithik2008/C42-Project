@@ -2,7 +2,7 @@ class Form{
     constructor(){
        this.input = createInput("Name");
        this.button = createButton('Play');
-       this.greeting = createElement('h2');
+       this.greeting = createElement('h4');
        this.title = createElement('h2');
        this.reset = createButton('Reset');
     }
@@ -45,8 +45,12 @@ class Form{
         });
 
         this.reset.mousePressed(() => {
-            //add code to reset the values of the gameState and the playerCount nodes to 0 in the database
-            
+            player.updateCount(0);
+            game.update(0);
+            database.ref("/").update({
+                players : null
+            });
+            location.reload();
         });
 
     }
