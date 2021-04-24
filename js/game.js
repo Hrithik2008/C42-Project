@@ -39,6 +39,7 @@ class Game {
     var x = 100;
     var y = 200;
     var index = 0;
+    var position = 50;
     drawSprites();
     for (var plr in allPlayers) {
       index = index + 1;
@@ -49,14 +50,20 @@ class Game {
       players[index - 1].y = y;
 
       if (index === player.index) {
+        push();
         textSize(24);
         textAlign(CENTER);
         //strokeWeight(32);
         fill(0);
         text(allPlayers[plr].name, x, y + 25);
+        pop();
       }
+      fill(255);
+      textSize(18);
+      text(`${allPlayers[plr].name} : ${allPlayers[plr].score}`,0, position );
+      position+=50;
     }
-
+    
     if (keyIsDown(RIGHT_ARROW) && player.index !== null) {
       player.distance -= 10;
       player.update();
@@ -94,6 +101,8 @@ class Game {
       for (var i = 0; i < fruitGroup.length; i++) {
         if (fruitGroup.get(i).isTouching(players)) {
           fruitGroup.get(i).destroy();
+          player.score++;
+          player.update();
         }
       }
     }
